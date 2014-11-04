@@ -1,0 +1,16 @@
+<md-whiteframe class="md-whiteframe-z1">
+    <md-toolbar>
+        <h2 class="md-toolbar-tools">
+            <span>Baller Statues</span>
+        </h2>
+    </md-toolbar>
+    <md-content layout="vertical" layout-align="center center">
+        <form style="padding: 20px;">
+            <div class="row">
+                <md-text-float label="Email" ng-model="email" type="email"></md-text-float>
+                <md-text-float label="Password" ng-model="password" type="password"></md-text-float>
+                <md-button aria-label="Login" style="width: 10rem;" class="md-raised md-primary" ng-click="login()">Login</md-button>
+            </div>
+        </form>
+    </md-content>
+</md-whiteframe>
