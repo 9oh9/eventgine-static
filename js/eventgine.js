@@ -50,7 +50,7 @@ angular.module('eventgine.services', ['restangular'])
                 return client_id;
             }
 
-            clients = Restangular.all('client');
+            clients = Restangular.all('clients');
             clients.post({
                 "redirect_uri_list": [
                     "http://test.eventgine.co"
