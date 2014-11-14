@@ -15,6 +15,12 @@ angular.module('eventgine', ['ngMaterial', 'eventgine.controllers', 'eventgine.s
                 controller: 'LoginCtrl as l'
             }
         ).state(
+            'register', {
+                url: '/register',
+                templateUrl: '/templates/register.html',
+                controller: 'RegisterCtrl as r'
+            }
+        ).state(
             'main', {
                 url: '/loggedin',
                 templateUrl: '/templates/main.html',
@@ -62,6 +68,21 @@ angular.module('eventgine.services', ['restangular'])
             });
 
             return client_id;
+        };
+    }
+])
+.factory('AccessToken', [
+    '$window', '$state',
+    function($window, $state) {
+        return function() {
+            var access_token = $window.localStorage.getItem('access_token');
+
+            if (access_token) {
+                return access_token;
+            }
+
+            $state.go('login');
+
         };
     }
 ]);

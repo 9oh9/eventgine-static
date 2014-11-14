@@ -58,6 +58,24 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
         };
     }
 ])
+.controller('RegisterCtrl', [
+    '$scope', '$window', 'Restangular',
+    function($scope, $window, Restangular) {
+
+        var access_token = '';
+
+        $scope.register = function() {
+            console.log('Whatever!');
+            Restangular.all('users')
+            .post({
+                name: $scope.name,
+                email: $scope.email,
+                password: $scope.password
+            });
+        };
+
+    }
+])
 .controller('MainCtrl', [
     '$scope', '$window',
     function($scope, $window) {
