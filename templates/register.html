@@ -1,17 +1,19 @@
-<div md-whiteframe class="md-whiteframe-z1">
-    <md-toolbar>
-        <h2 class="md-toolbar-tools">
-            <span>Create an Account</span>
-        </h2>
-    </md-toolbar>
-    <md-content layout="vertical" layout-align="center center">
-        <form style="padding: 20px;">
-            <div class="row">
-                <md-text-float label="Name" ng-model="name"></md-text-float>
-                <md-text-float label="Email" ng-model="email" type="email"></md-text-float>
-                <md-text-float label="Password" ng-model="password" type="password"></md-text-float>
-                <md-button aria-label="Login" style="width: 10rem;" class="md-raised md-primary" ng-click="register()">Register</md-button>
-            </div>
-        </form>
-    </md-content>
-</div md-whiteframe>
+<div flex layout="horizontal" layout-align="center center" layout-fill >
+  <div flex="25" align-self="center" class="md-whiteframe-z1">
+      <md-toolbar>
+          <h2 class="md-toolbar-tools">
+              <span>Sign Up!</span>
+          </h2>
+      </md-toolbar>
+      <md-content layout="vertical" layout-align="center center">
+          <form style="padding: 20px;">
+              <div class="row">
+                  <md-text-float label="Name" ng-model="name"></md-text-float>
+                  <md-text-float label="Email" ng-model="email" type="email"></md-text-float>
+                  <md-text-float label="Password" ng-model="password" type="password"></md-text-float>
+                  <md-button aria-label="Login" style="width: 10rem;" class="md-raised md-primary" ng-click="register()">Register</md-button>
+              </div>
+          </form>
+      </md-content>
+    </div>
+  </div>

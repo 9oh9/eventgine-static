@@ -1,7 +1,8 @@
 <!doctype html>
 <html ng-app="eventgine">
     <head>
-        <title>Whatever</title>
+
+        <title>Eventgine</title>
         <base href="/">
 
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -9,7 +10,6 @@
         <link rel="stylesheet" href="/bower_components/angular-material/themes/default-theme.css">
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.11.2/URI.min.js"></script>
-
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-animate.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
@@ -22,13 +22,13 @@
         <script src="/js/eventgine.js"></script>
         <script src="/js/eventgine.controllers.js"></script>
     </head>
-    <body>
-        <md-toolbar>
+    <body layout="vertical" md-theme="" layout-fill >
+        <md-toolbar clss="md-whiteframe-z1">
             <h2 class="md-toolbar-tools">
                 <span>Eventgine</span>
             </h2>
         </md-toolbar>
-        <md-content ng-view scroll-y layout="vertical" style="max-width: 20rem; margin: auto;" layout-fill flex class="md-padding">
+        <md-content ng-view scroll-y layout="vertical"  flex class="md-padding">
             <ui-view></ui-view>
         </md-content>
     </body>
