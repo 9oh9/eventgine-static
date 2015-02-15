@@ -11,19 +11,11 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
     '$scope', '$window', 'Restangular', 'ClientID', 'ImplicitGrant',
     function($scope, $window, Restangular, ClientID, ImplicitGrant) {
 
-        var interval_id = $window.setInterval(function() {
-            if (ClientID()) {
-                $window.clearInterval(interval_id);
-            }
-        }, 1000);
-
-
         console.log("ImplicitGrant", ImplicitGrant());
 
         $scope.login = function() {
 
             var urlEncodedDataPairs = [];
-
 
             var data = {
                 "eventgine-email": $scope.email,
@@ -89,8 +81,12 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
 .controller('LoggedInCtrl', [
     '$scope', '$window', 'AccessToken', '$state',
     function($scope, $window, AccessToken, $state) {
-        var queryObj = URI.parseQuery($window.location.hash.replace('#', '?'));
-        var access_token = AccessToken(queryObj.access_token);
+        var queryObj = URI.parseQuery($window.location.hash.replace('#', '?')),
+            access_token;
+
+        AccessToken(queryObj.access_token).then(function(data){
+          access_token = data;
+        }, undefined);
 
         if(queryObj.next){
           $state.go(queryObj.next);

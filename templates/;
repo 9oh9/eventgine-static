@@ -68,6 +68,7 @@ angular.module('eventgine.services', ['restangular'])
             client_id = $window.localStorage.getItem('ClientID');
 
             if (client_id) {
+                console.log(client_id);
                 return client_id;
             }
 
@@ -80,6 +81,7 @@ angular.module('eventgine.services', ['restangular'])
             }).then(function(response) {
                 client_id = response.response.client_id;
                 $window.localStorage.setItem('ClientID', client_id);
+                console.log(client_id);
                 return client_id;
             });
         };
