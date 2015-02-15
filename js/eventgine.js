@@ -8,8 +8,7 @@ angular.module('eventgine', ['ngMaterial', 'eventgine.controllers', 'eventgine.s
                 url: '/',
                 templateUrl: '/templates/home.html'
             }
-        ).state(
-            'login', {
+        ).state( 'login', {
                 url: '/login',
                 templateUrl: '/templates/login.html',
                 controller: 'LoginCtrl as l'
@@ -42,13 +41,21 @@ angular.module('eventgine', ['ngMaterial', 'eventgine.controllers', 'eventgine.s
         $locationProvider.hashPrefix('!');
     }
 ])
-.run(['$window', 'ClientID', function($window, ClientID){
+.run(['$window', 'ClientID', '$rootScope', 'AccessToken',
+    function($window, ClientID, $rootScope, AccessToken){
 
     var interval_id = $window.setInterval(function() {
       if (ClientID()) {
-        $window.clearInterval(interval_id);
+          $window.clearInterval(interval_id);
       }
     }, 1000);
+
+    $rootScope.$on('unauthorized', function(ev, data){
+        console.log('Unauthorized request occured!');
+        AccessToken(null).finally(function(data){
+          console.log('Access Token was revoked');
+        });
+    });
 
 }]);
 
@@ -90,14 +97,19 @@ angular.module('eventgine.services', ['restangular'])
     function($window, $state, $q) {
         return function(token) {
           var deferred = $q.defer();
-          if(!token){
+          if(token == null){
+            $window.localStorage.removeItem('access_token');
+            $state.go('login');
+            deferred.reject(null);
+          }
+          else if(token == undefined){
             var access_token = $window.localStorage.getItem('access_token');
 
             if (access_token) {
               deferred.resolve(access_token);
             }
-
             $state.go('login');
+            deferred.reject(null);
           }
           else {
             $window.localStorage.setItem('access_token', token);
