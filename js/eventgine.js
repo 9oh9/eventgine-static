@@ -21,8 +21,14 @@ angular.module('eventgine', ['ngMaterial', 'eventgine.controllers', 'eventgine.s
                 controller: 'RegisterCtrl as r'
             }
         ).state(
+            'postauth', {
+                url: '/postauth',
+                templateUrl: '/templates/main.html',
+                controller: 'PostAuthCtrl as pa'
+            }
+        ).state(
             'main', {
-                url: '/loggedin',
+                url: '/dashboard',
                 templateUrl: '/templates/main.html',
                 controller: 'MainCtrl as m'
             }
@@ -74,15 +80,20 @@ angular.module('eventgine.services', ['restangular'])
 .factory('AccessToken', [
     '$window', '$state',
     function($window, $state) {
-        return function() {
-            var access_token = $window.localStorage.getItem('access_token');
+        return {
+            get: function() {
+                var access_token = $window.localStorage.getItem('access_token');
 
-            if (access_token) {
-                return access_token;
+                if (access_token) {
+                    return access_token;
+                }
+
+                $state.go('login');
+
+            },
+            set: function(access_token) {
+                $window.localStorage.setItem('access_token', access_token);
             }
-
-            $state.go('login');
-
         };
     }
 ]);

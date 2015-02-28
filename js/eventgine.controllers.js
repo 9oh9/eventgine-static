@@ -8,8 +8,8 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
     }
 ])
 .controller('LoginCtrl', [
-    '$scope', '$window', 'Restangular', 'ClientID',
-    function($scope, $window, Restangular, ClientID) {
+    '$scope', '$window', '$state', 'Restangular', 'ClientID',
+    function($scope, $window, $state, Restangular, ClientID) {
 
         var interval_id = $window.setInterval(function() {
             console.log(ClientID());
@@ -28,7 +28,7 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
                 "eventgine-auth-scope": 'user',
                 "eventgine-request-state": 'boobs',
                 "eventgine-client-id": '5be959b2f89a5ceb6f35b0eadb48415a',
-                "eventgine-redirect-uri": 'http://test.eventgine.co/loggedin'
+                "eventgine-redirect-uri": $state.href('postauth', {}, {absolute: true})
             };
 
             // We turn the data object into an array of URL encoded key value pairs.
@@ -58,6 +58,19 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
         };
     }
 ])
+.controller('PostAuthCtrl', [
+    '$scope', '$state', '$window', 'AccessToken',
+    function($scope, $state, $window, AccessToken) {
+        console.log(AccessToken);
+
+        AccessToken.set(
+            URI.parseQuery($window.location.hash.replace('#', '?')).access_token
+        );
+
+        $scope.access_token = AccessToken.get();
+        $state.go('main');
+    }
+])
 .controller('RegisterCtrl', [
     '$scope', '$window', 'Restangular',
     function($scope, $window, Restangular) {
@@ -77,10 +90,9 @@ angular.module('eventgine.controllers', ['restangular', 'eventgine.services'])
     }
 ])
 .controller('MainCtrl', [
-    '$scope', '$window',
-    function($scope, $window) {
-        var access_token = URI.parseQuery($window.location.hash.replace('#', '?')).access_token;
-        console.log(access_token);
-        $scope.access_token = access_token;
+    '$scope', '$window', 'AccessToken',
+    function($scope, $window, AccessToken) {
+        console.log(AccessToken.get());
+        $scope.access_token = AccessToken.get();
     }
 ]);

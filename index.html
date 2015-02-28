@@ -7,6 +7,7 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
         <link rel="stylesheet" href="/bower_components/angular-material/themes/default-theme.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/themes/red-theme.css">
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.11.2/URI.min.js"></script>
 
@@ -22,14 +23,27 @@
         <script src="/js/eventgine.js"></script>
         <script src="/js/eventgine.controllers.js"></script>
     </head>
-    <body>
+    <body ng-init="open = false">
         <md-toolbar>
-            <h2 class="md-toolbar-tools">
-                <span>Eventgine</span>
-            </h2>
+            <div class="md-toolbar-tools">
+                <md-button ng-click="open = !open">+</md-button>
+                <h2>Eventgine</h2>
+            </div>
         </md-toolbar>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="open">
+            <md-toolbar class="md-tall">
+                <div class="md-toolbar-tools">
+                    <span>Sidenav Right</span>
+                    <md-button class="md-fab md-primary" md-theme="red">NS</md-button>
+                </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+                <md-button class="md-primary" ng-click="open = !open">Close Sidenav Right</md-button>
+            </md-content>
+        </md-sidenav>
         <md-content ng-view scroll-y layout="vertical" style="max-width: 20rem; margin: auto;" layout-fill flex class="md-padding">
             <ui-view></ui-view>
         </md-content>
+
     </body>
 </html>
